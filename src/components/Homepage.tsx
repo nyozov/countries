@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { motion, AnimatePresence } from "framer-motion";
+import { Link } from 'react-router-dom'
 interface Country {
   id: number;
   name: Name;
@@ -23,12 +24,10 @@ const Homepage: React.FC = () => {
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    console.log(query);
   };
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRegion(e.target.value);
-    console.log(region);
   };
 
   useEffect(() => {
@@ -46,11 +45,11 @@ const Homepage: React.FC = () => {
 
   return (
     <div>
-      <div className="p-4 bg-gray-100 w-screen flex justify-between items-center">
+      <div className="p-4 bg-gray-100  w-screen flex flex-col sm:flex-row justify-between items-center">
         <input
           onChange={handleInput}
           type="text"
-          className="rounded-lg p-2 px-4"
+          className="shadow w-full sm:w-[300px] p-2 px-4 focus:outline-none"
           placeholder="Search for a country..."
         />
 
@@ -59,8 +58,7 @@ const Homepage: React.FC = () => {
           onChange={handleSelect}
           name="regions"
           id="cars"
-          className="p-2 px-4 rounded-lg"
-          placeholder="Filter by Region"
+          className="p-2 px-4 mt-2 sm:mt-0 text-gray-400 shadow focus:outline-none mr-4"
         >
           <option value="" selected>
             Filter by Region
@@ -72,7 +70,7 @@ const Homepage: React.FC = () => {
           <option value="Oceania">Oceania</option>
         </select>
       </div>
-      <div className="p-4 grid grid-cols-4 gap-4 bg-gray-100">
+      <div className="p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 bg-gray-100">
         {countries &&
           countries
             .filter((country) =>
@@ -82,23 +80,22 @@ const Homepage: React.FC = () => {
               country.name.common.toLowerCase().includes(query.toLowerCase())
             )
             .map((country) => (
+              <Link to={`country/${country.name.common.toLowerCase()}`}>
               <div
                 key={country.id}
-                className="duration-150 border cursor-pointer"
+                className="duration-150 border w-full h-full cursor-pointer shadow bg-white"
               >
-                <img
-                  className="w-full object-cover h-[150px]"
-                  src={country.flags.png}
-                />
-                <div className="p-4">
+                <img className="w-full  h-1/2" src={country.flags.png} />
+                <div className="p-4 border-t">
                   <p className="font-semibold text-lg">{country.name.common}</p>
                   <div className="text-sm font-light text-gray-600">
-                    <p>Population: {country.population}</p>
-                    <p>Region {country.region}</p>
+                    <p>Population: {country.population.toLocaleString()}</p>
+                    <p>Region: {country.region}</p>
                     <p>Capital: {country.capital}</p>
                   </div>
                 </div>
               </div>
+              </Link>
             ))}
       </div>
     </div>
