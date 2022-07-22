@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+
 interface Country {
   id: number;
   name: Name;
@@ -17,8 +18,11 @@ interface Flag {
 interface Name {
   common: string;
 }
-const Homepage: React.FC = () => {
-  const [countries, setCountries] = useState<Country[]>([]);
+
+type HomeProps = {
+  countries: Country[];
+};
+const Homepage: React.FC<HomeProps> = ({ countries }: HomeProps) => {
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
 
@@ -29,19 +33,6 @@ const Homepage: React.FC = () => {
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRegion(e.target.value);
   };
-
-  useEffect(() => {
-    const fetchCountries = async () => {
-      const response = await axios.get("https://restcountries.com/v3.1/all");
-      console.log(response);
-
-      if (response.status === 200) {
-        setCountries(response.data);
-      }
-    };
-
-    fetchCountries();
-  }, []);
 
   return (
     <div>
@@ -70,7 +61,7 @@ const Homepage: React.FC = () => {
           <option value="Oceania">Oceania</option>
         </select>
       </div>
-      <div className="p-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 bg-gray-100">
+      <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 bg-gray-100">
         {countries &&
           countries
             .filter((country) =>
@@ -81,20 +72,22 @@ const Homepage: React.FC = () => {
             )
             .map((country) => (
               <Link to={`country/${country.name.common.toLowerCase()}`}>
-              <div
-                key={country.id}
-                className="duration-150 border w-full h-full cursor-pointer shadow bg-white"
-              >
-                <img className="w-full  h-1/2" src={country.flags.png} />
-                <div className="p-4 border-t">
-                  <p className="font-semibold text-lg">{country.name.common}</p>
-                  <div className="text-sm font-light text-gray-600">
-                    <p>Population: {country.population.toLocaleString()}</p>
-                    <p>Region: {country.region}</p>
-                    <p>Capital: {country.capital}</p>
+                <div
+                  key={country.id}
+                  className="duration-150 border w-full h-full cursor-pointer shadow bg-white"
+                >
+                  <img className="w-full sm:h-1/2" src={country.flags.png} />
+                  <div className="p-4 border-t">
+                    <p className="font-semibold text-lg">
+                      {country.name.common}
+                    </p>
+                    <div className="text-sm font-light text-gray-600">
+                      <p>Population: {country.population.toLocaleString()}</p>
+                      <p>Region: {country.region}</p>
+                      <p>Capital: {country.capital}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
               </Link>
             ))}
       </div>
