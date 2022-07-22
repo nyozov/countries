@@ -4,22 +4,7 @@ import Navbar from "./components/Navbar";
 import SelectedCountry from "./components/SelectedCountry";
 import { Routes, Route, useLocation } from "react-router-dom";
 import axios from 'axios';
-
-interface Country {
-  id: number;
-  name: Name;
-  flags: Flag;
-  population: number;
-  capital: string;
-  region: string;
-}
-interface Flag {
-  png: string;
-}
-
-interface Name {
-  common: string;
-}
+import {Country, Flag, Name} from './interfaces'
 
 
 
@@ -43,7 +28,7 @@ const App: React.FC = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage countries={countries}/>} />
-        <Route path="country/:name" element={<SelectedCountry />} />
+        <Route path="country/:name" element={<SelectedCountry countries={countries} />} />
       </Routes>
     </div>
   );

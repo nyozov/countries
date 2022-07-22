@@ -1,32 +1,12 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
-import { json } from "body-parser";
+import { Country, Flag, Name, HomeProps } from "../interfaces";
 
-interface Country {
-  id: number;
-  name: Name;
-  flags: Flag;
-  population: number;
-  capital: string;
-  region: string;
-  tld: string;
-  currencies: any;
-  languages: any;
-  borders: [];
-}
-interface Flag {
-  png: string;
-}
-
-interface Name {
-  common: string;
-  nativeName: any;
-}
-
-const SelectedCountry: React.FC = () => {
+const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
   const [country, setCountry] = useState<Country | undefined>(undefined);
   const [loading, setLoading] = useState<Boolean>(true);
+  const [borderCountries, setBorderCountries] = useState<Country[] | undefined>(undefined)
 
   const location = useLocation();
 
@@ -47,8 +27,28 @@ const SelectedCountry: React.FC = () => {
     };
 
     fetchCountry();
-    console.log(country?.currencies);
+
   }, []);
+
+  const handleBorders = (borders: [], countries: Country[]) => {
+    const result: Country[] = [];
+    for (const border of borders) {
+      for (const count of countries) {
+        if (border === count.cca3) {
+          console.log('idk', count.cca3);
+          result.push(count)
+      
+          console.log('bordercountries=',borderCountries)
+        }
+      }
+    }
+    setBorderCountries(result)
+  };
+
+  useEffect(() => {
+    handleBorders(country?.borders || [], countries)
+  }, [country])
+  
 
   return (
     <div className="w-screen flex justify-center items-center flex-col">
@@ -85,7 +85,7 @@ const SelectedCountry: React.FC = () => {
                 <b>Capital:</b> {country.capital}
               </p>
 
-              <p>
+              <p className='mt-8'>
                 <b>Top Level Domain:</b> {country.tld}
               </p>
               <p>
@@ -101,11 +101,13 @@ const SelectedCountry: React.FC = () => {
                 {country.borders && (
                   <h2 className="font-semibold mt-6">Border Countries:</h2>
                 )}
-                <div className="flex">
-                  {country.borders?.map((border) => (
-                    <div className="mr-4 border shadow cursor-pointer p-1 font-sm mt-2 px-4">
-                      {border}
-                    </div>
+                <div className="overflow-x-auto gap-4 flex">
+                  {country.borders && borderCountries?.map((border) => (
+                   
+                     <Link to={`/country/${border.name.common}`} className="flex justify-center items-center border shadow cursor-pointer p-1 text-xs mt-2 px-4">
+                      {border.name.common}
+                   
+                    </Link>
                   ))}
                 </div>
               </div>

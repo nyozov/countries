@@ -1,27 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Country, Flag, Name, HomeProps} from '../interfaces'
 
-interface Country {
-  id: number;
-  name: Name;
-  flags: Flag;
-  population: number;
-  capital: string;
-  region: string;
-}
-interface Flag {
-  png: string;
-}
-
-interface Name {
-  common: string;
-}
-
-type HomeProps = {
-  countries: Country[];
-};
 const Homepage: React.FC<HomeProps> = ({ countries }: HomeProps) => {
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
