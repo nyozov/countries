@@ -8,6 +8,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
   const [loading, setLoading] = useState<Boolean>(true);
   const [borderCountries, setBorderCountries] = useState<Country[] | undefined>(undefined)
 
+
   const location = useLocation();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
       if (response.status === 200) {
         setCountry(response.data[0]);
         setLoading(false);
+        
       }
     };
 
@@ -30,6 +32,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
 
   }, [location.pathname]);
 
+  
   const handleBorders = (borders: [], countries: Country[]) => {
     const result: Country[] = [];
     for (const border of borders) {
@@ -43,16 +46,18 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
       }
     }
     setBorderCountries(result)
+
+   
   };
 
   useEffect(() => {
     handleBorders(country?.borders || [], countries)
-  }, [country])
+  }, [country, countries])
   
 
   return (
     <div className="w-screen flex justify-center items-center flex-col">
-      <div className="w-11/12 mt-4">
+     <div className="w-11/12 mt-4">
         <Link
           to="/"
           className="p-1 px-6 border shadow bg-white font-light text-gray-600 text-sm"
@@ -61,9 +66,11 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
         </Link>
       </div>
 
-      {country && (
-        <div className="flex mt-12 justify-center flex-col items-center w-screen">
-          <img className="w-11/12 border" src={country.flags.png} />
+      {!loading && country && (
+        <div className="flex mt-12 max-h-[50vh] justify-center flex-col sm:flex-row sm:gap-8 items-center w-screen">
+          <div className='w-11/12 p-4  '>
+          <img className="w-full h-1/2 object-contain border" src={country.flags.png} />
+          </div>
           <div className="text-left w-11/12 ">
             <p className="font-semibold text-xl py-4">{country.name.common}</p>
             <div className=" text-sm font-light text-gray-600">
@@ -101,8 +108,8 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
                 {country.borders && (
                   <h2 className="font-semibold mt-6">Border Countries:</h2>
                 )}
-                <div className="overflow-x-auto gap-4 flex">
-                  {country.borders && borderCountries?.map((border) => (
+                <div className="overflow-x-auto gap-4 flex sm:w-[50vw]">
+                  {borderCountries?.map((border) => (
                    
                      <Link to={`/country/${border.name.common}`} className="flex justify-center items-center border shadow cursor-pointer p-1 text-xs mt-2 px-4">
                       {border.name.common}
@@ -112,10 +119,13 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-    </div>
+            </div>
+            </div>
+            
+            )}
+            
+          
+            </div>
   );
 };
 
