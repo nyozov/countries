@@ -6,8 +6,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import axios from 'axios';
 import {Country, Flag, Name} from './interfaces'
 
-
-
 const App: React.FC = () => {
   const [countries, setCountries] = useState<Country[]>([]);
 

@@ -28,7 +28,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
 
     fetchCountry();
 
-  }, []);
+  }, [location.pathname]);
 
   const handleBorders = (borders: [], countries: Country[]) => {
     const result: Country[] = [];
@@ -63,7 +63,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
 
       {country && (
         <div className="flex mt-12 justify-center flex-col items-center w-screen">
-          <img className="w-11/12 border h-[250px]" src={country.flags.png} />
+          <img className="w-11/12 border" src={country.flags.png} />
           <div className="text-left w-11/12 ">
             <p className="font-semibold text-xl py-4">{country.name.common}</p>
             <div className=" text-sm font-light text-gray-600">

@@ -16,7 +16,7 @@ const Homepage: React.FC<HomeProps> = ({ countries }: HomeProps) => {
 
   return (
     <div>
-      <div className="p-4 bg-gray-100  w-screen flex flex-col sm:flex-row justify-between items-center">
+      <div className="p-4 bg-gray-100  w-screen flex flex-col sm:flex-row justify-between sm:items-center items-start">
         <input
           onChange={handleInput}
           type="text"
