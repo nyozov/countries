@@ -10,6 +10,8 @@ export interface Country {
   languages: any;
   borders: [];
   cca3: string;
+  ccn3: string;
+  area: number;
 }
 export interface Flag {
   png: string;
@@ -23,3 +25,4 @@ export interface Name {
 export type HomeProps = {
   countries: Country[];
 };
+

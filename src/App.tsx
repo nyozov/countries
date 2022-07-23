@@ -7,6 +7,7 @@ import axios from 'axios';
 import {Country, Flag, Name} from './interfaces'
 
 const App: React.FC = () => {
+  const [lightMode, setLightMode] = useState("light")
   const [countries, setCountries] = useState<Country[]>([]);
 
   useEffect(() => {
@@ -22,8 +23,8 @@ const App: React.FC = () => {
     fetchCountries();
   }, []);
   return (
-    <div className="App">
-      <Navbar />
+    <div className={`${lightMode} bg-white dark:bg-gray-900 min-h-screen`}>
+      <Navbar lightMode={lightMode} setLightMode={setLightMode} />
       <Routes>
         <Route path="/" element={<Homepage countries={countries}/>} />
         <Route path="country/:name" element={<SelectedCountry countries={countries} />} />

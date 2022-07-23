@@ -56,7 +56,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
   
 
   return (
-    <div className="w-screen flex justify-center items-center flex-col">
+    <div className="w-screen flex justify-center bg-gray-100 dark:bg-gray-900 items-center flex-col">
      <div className="w-11/12 mt-4">
         <Link
           to="/"
