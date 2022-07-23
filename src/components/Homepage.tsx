@@ -57,7 +57,7 @@ const Homepage: React.FC<HomeProps> = ({ countries }: HomeProps) => {
                   key={Number(country.ccn3)}
                   className="duration-150 border w-full h-full cursor-pointer shadow bg-white dark:bg-gray-800 dark:text-white dark:border-gray-900"
                 >
-                  <img className="w-full sm:h-1/2" src={country.flags.png} />
+                  <img alt={`${country.name.common} flag`} className="w-full sm:h-1/2" src={country.flags.png} />
                   <div className="p-4 border-t dark:border-gray-800">
                     <p className="font-semibold text-lg">
                       {country.name.common}

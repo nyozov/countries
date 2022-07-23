@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
-import { Country, Flag, Name, HomeProps } from "../interfaces";
+import { Country, HomeProps } from "../interfaces";
 import { BiArrowBack } from "react-icons/bi";
 
 const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
@@ -66,6 +66,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
         <div className="flex mt-12 h-full justify-center flex-col sm:flex-row sm:gap-8 items-center w-screen">
           <div className="w-11/12 h-full p-4  ">
             <img
+              alt={`${country.name.common} flag`}
               className="w-full h-1/2 object-contain border dark:border-gray-900"
               src={country.flags.png}
             />
