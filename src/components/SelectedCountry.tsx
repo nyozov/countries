@@ -19,7 +19,7 @@ const SelectedCountry: React.FC<HomeProps> = ({ countries }: HomeProps) => {
         `https://restcountries.com/v3.1/name/${location.pathname.slice(
           9,
           location.pathname.length
-        )}?fullText=true`
+        ).split(' ').join('%')}?fullText=true`
       );
       console.log(response);
 
