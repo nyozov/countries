@@ -23,12 +23,14 @@ const App: React.FC = () => {
     fetchCountries();
   }, []);
   return (
-    <div className={`${lightMode} bg-white dark:bg-gray-900 min-h-screen`}>
+    <div className={`${lightMode} bg-gray-100 min-h-screen`}>
+      <div className='min-h-screen dark:bg-gray-900'>
       <Navbar lightMode={lightMode} setLightMode={setLightMode} />
       <Routes>
         <Route path="/" element={<Homepage countries={countries}/>} />
         <Route path="country/:name" element={<SelectedCountry countries={countries} />} />
       </Routes>
+      </div>
     </div>
   );
 }

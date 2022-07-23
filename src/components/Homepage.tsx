@@ -16,7 +16,7 @@ const Homepage: React.FC<HomeProps> = ({ countries }: HomeProps) => {
 
   return (
     <div>
-      <div className="p-4 bg-gray-100 dark:bg-gray-900  w-screen flex flex-col sm:flex-row justify-between sm:items-center items-start">
+      <div className="p-4 bg-gray-100 dark:bg-gray-900  w-full flex flex-col sm:flex-row justify-between sm:items-center items-start">
         <input
           onChange={handleInput}
           type="text"
@@ -55,14 +55,14 @@ const Homepage: React.FC<HomeProps> = ({ countries }: HomeProps) => {
               <Link to={`country/${country.name.common.toLowerCase()}`}>
                 <div
                   key={Number(country.ccn3)}
-                  className="duration-150 border w-full h-full cursor-pointer shadow bg-white dark:bg-gray-800 dark:text-white dark:border-none"
+                  className="duration-150 border w-full h-full cursor-pointer shadow bg-white dark:bg-gray-800 dark:text-white dark:border-gray-900"
                 >
                   <img className="w-full sm:h-1/2" src={country.flags.png} />
-                  <div className="p-4 border-t">
+                  <div className="p-4 border-t dark:border-gray-800">
                     <p className="font-semibold text-lg">
                       {country.name.common}
                     </p>
-                    <div className="text-sm font-light text-gray-600">
+                    <div className="text-sm font-light dark:text-gray-300 text-gray-600">
                       <p>Population: {country.population.toLocaleString()}</p>
                       <p>Region: {country.region}</p>
                       <p>Capital: {country.capital}</p>
